@@ -21,7 +21,11 @@ import pygame
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 650
 FPS = 60
-
+# Colours
+LIGHT_ORANGE = (255, 230, 190)
+GREEN = (0, 120, 0)
+BLACK = (0, 0, 0)
+RED = (180, 0, 0)
 
 def main():
     """
@@ -32,20 +36,64 @@ def main():
     """
     pygame.init()
 
+    title_font = pygame.font.SysFont("arial", 50, bold=True)
+    normal_font = pygame.font.SysFont("arial", 30)
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Discover Kerala")
 
     clock = pygame.time.Clock()
     running = True
+    current_screen = "START"
 
     while running:
         clock.tick(FPS)
 
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+
+                if current_screen == "START":
+
+                    if event.key == pygame.K_k:
+                        print("K pressed")
+
+                    elif event.key == pygame.K_ESCAPE:
+                        running = False            
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill((255, 230, 190))
+        screen.fill(LIGHT_ORANGE)
+
+        if current_screen == "START":
+
+            title_text = title_font.render(
+                "DISCOVER KERALA",
+                True,
+                GREEN
+            )
+
+            subtitle_text = normal_font.render(
+                "Harmony Day Cultural Quiz Game",
+                True,
+                BLACK
+            )
+
+            start_text = normal_font.render(
+                "Press K to Discover Kerala",
+                True,
+                BLACK
+            )
+
+            exit_text = normal_font.render(
+                "Press ESC to Exit",
+                True,
+                RED
+            )
+
+            screen.blit(title_text, (220, 150))
+            screen.blit(subtitle_text, (220, 250))
+            screen.blit(start_text, (260, 350))
+            screen.blit(exit_text, (320, 420))
         pygame.display.flip()
 
     pygame.quit()
