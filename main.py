@@ -71,6 +71,54 @@ TOPICS = {
     ]
 }
 
+QUIZ_QUESTIONS = [
+    {
+        "question": "Which of these foods comes from Kerala?",
+        "options": [
+            "A. Sadya",
+            "B. Sushi",
+            "C. Tacos"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Which of these festivals is celebrated in Kerala?",
+        "options": [
+            "A. Onam",
+            "B. Halloween",
+            "C. Oktoberfest"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Which of these is a traditional performance art from Kerala?",
+        "options": [
+            "A. Kathakali",
+            "B. Ballet",
+            "C. Flamenco"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Which of these is traditional clothing from Kerala?",
+        "options": [
+            "A. Mundu",
+            "B. Kimono",
+            "C. Kilt"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Which martial art originated in Kerala?",
+        "options": [
+            "A. Kalaripayattu",
+            "B. Karate",
+            "C. Taekwondo"
+        ],
+        "answer": "A"
+    }
+]
+
 def main():
     """
     Create and run the Discover Kerala game.
@@ -148,6 +196,11 @@ def main():
                     elif event.key == pygame.K_w:
                         selected_topic = "WELLNESS"
                         current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_q:
+                        question_number = 0
+                        score = 0
+                        current_screen = "QUIZ"
 
                 elif current_screen == "TOPIC":
 
@@ -300,6 +353,54 @@ def main():
             screen.blit(back_text, (180, 560))
 
             pygame.display.flip()
+
+        elif current_screen == "QUIZ":
+
+            screen.fill((255, 255, 255))
+
+            question = QUIZ_QUESTIONS[question_number]
+
+            title_text = title_font.render(
+                f"Question {question_number + 1} of 5",
+                True,
+                GREEN
+            )
+
+            screen.blit(title_text, (220, 70))
+
+            question_text = normal_font.render(
+                question["question"],
+                True,
+                BLACK
+            )
+
+            screen.blit(question_text, (60, 180))
+
+            y = 280
+
+            for option in question["options"]:
+
+                option_text = normal_font.render(
+                    option,
+                    True,
+                    BLACK
+                )
+
+                screen.blit(option_text, (180, y))
+
+                y += 60
+
+            help_text = normal_font.render(
+                "Press A, B or C",
+                True,
+                RED
+            )
+
+            screen.blit(help_text, (300, 520))
+
+            pygame.display.flip() 
+
+
     pygame.quit()
 
 
