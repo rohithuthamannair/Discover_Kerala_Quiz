@@ -105,10 +105,6 @@ def main():
                         selected_topic = "WELLNESS"
                         current_screen = "TOPIC"
 
-                    elif event.key == pygame.K_k:
-                        selected_topic = "KERALA FUN FACTS"
-                        current_screen = "TOPIC"
-
                 elif current_screen == "TOPIC":
 
                     if event.key == pygame.K_BACKSPACE:
@@ -217,7 +213,6 @@ def main():
                 "C - Clothing",
                 "M - Martial Arts",
                 "W - Wellness",
-                "K - Kerala Fun Facts",
                 "",
                 "Q - Start Quiz",
                 "ESC - Exit"
