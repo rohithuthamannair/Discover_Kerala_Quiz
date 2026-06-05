@@ -21,11 +21,55 @@ import pygame
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 650
 FPS = 60
+
 # Colours
 LIGHT_ORANGE = (255, 230, 190)
 GREEN = (0, 120, 0)
 BLACK = (0, 0, 0)
 RED = (180, 0, 0)
+
+TOPICS = {
+    "FOOD": [
+        "Fish Moilee",
+        "- A famous Kerala fish curry made with coconut milk.",
+        "- Popular in coastal areas of Kerala.",
+        "",
+        "Sadya",
+        "- A traditional feast served on a banana leaf.",
+        "- Commonly enjoyed during Onam celebrations."
+    ],
+    "FESTIVALS": [
+        "Onam",
+        "- Kerala's harvest festival.",
+        "",
+        "Thrissur Pooram",
+        "- Famous for decorated elephants."
+    ],
+    "ARTS & PERFORMANCE": [
+        "Kathakali",
+        "- Classical dance-drama with colourful face paint.",
+        "",
+        "Theyyam",
+        "- Traditional ritual performance from North Kerala."
+    ],
+    "CLOTHING": [
+        "Mundu",
+        "- Traditional clothing worn by men.",
+        "",
+        "Kasavu Sari",
+        "- Traditional clothing worn by women."
+    ],
+    "MARTIAL ARTS": [
+        "Kalaripayattu",
+        "- One of the oldest martial arts in the world.",
+        "- Originated in Kerala."
+    ],
+    "WELLNESS": [
+        "Ayurveda",
+        "- Traditional Indian wellness system.",
+        "- Focuses on healthy living."
+    ]
+}
 
 def main():
     """
@@ -109,18 +153,6 @@ def main():
 
                     if event.key == pygame.K_BACKSPACE:
                         current_screen = "MENU"
-                
-                elif current_screen == "TOPIC":
-
-                    screen.fill((255, 255, 255))
-
-                    title_text = title_font.render(
-                        selected_topic,
-                        True,
-                        GREEN
-                    )
-
-                    screen.blit(title_text, (250, 80))
 
             if event.type == pygame.QUIT:
                 running = False
@@ -243,17 +275,31 @@ def main():
                 GREEN
             )
 
+            screen.blit(title_text, (220, 70))
+
+            y = 160
+
+            for line in TOPICS[selected_topic]:
+
+                text = normal_font.render(
+                    line,
+                    True,
+                    BLACK
+                )
+
+                screen.blit(text, (100, y))
+
+                y += 40
+
             back_text = normal_font.render(
                 "Press BACKSPACE to return to Main Menu",
                 True,
                 RED
             )
 
-            screen.blit(title_text, (220, 150))
-            screen.blit(back_text, (180, 500))
+            screen.blit(back_text, (180, 560))
 
             pygame.display.flip()
-
     pygame.quit()
 
 
