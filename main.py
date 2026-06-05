@@ -67,7 +67,8 @@ def main():
                     if event.key == pygame.K_RETURN:
 
                         if student_name.strip() != "":
-                            print("Student:", student_name)
+                            current_screen = "MENU"
+                            print("Moving to MENU")
 
                     elif event.key == pygame.K_BACKSPACE:
 
@@ -78,6 +79,10 @@ def main():
                         if len(student_name) < 18:
                             student_name += event.unicode
 
+                elif current_screen == "MENU":
+
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
 
             if event.type == pygame.QUIT:
                 running = False
@@ -151,6 +156,47 @@ def main():
             screen.blit(enter_text, (220, 400))
 
             pygame.display.flip()
+
+        elif current_screen == "MENU":
+
+            screen.fill(LIGHT_ORANGE)
+
+            welcome_text = normal_font.render(f"Welcome, {student_name}",True,GREEN)
+
+            title_text = normal_font.render("PRESS THE FOLLOWING KEYS TO EXPLORE KERALA",True,BLACK)
+
+            screen.blit(welcome_text, (280, 50))
+            screen.blit(title_text, (90, 120))
+
+            menu_lines = [
+                "F - Food",
+                "E - Festivals",
+                "A - Arts & Performance",
+                "C - Clothing",
+                "M - Martial Arts",
+                "W - Wellness",
+                "K - Kerala Fun Facts",
+                "",
+                "Q - Start Quiz",
+                "ESC - Exit"
+            ]
+
+            y = 200
+
+            for line in menu_lines:
+
+                text = normal_font.render(
+                    line,
+                    True,
+                    BLACK
+                )
+
+                screen.blit(text, (280, y))
+
+                y += 40
+            pygame.display.flip()
+
+
     pygame.quit()
 
 
