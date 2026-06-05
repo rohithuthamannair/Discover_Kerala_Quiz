@@ -2,17 +2,16 @@
 Discover Kerala: Harmony Day Cultural Quiz Game
 
 This program will introduce primary school students to selected
-aspects of Kerala culture through educational screens and a quiz.
+aspects of Kerala culture through educational screens and a quiz on Harmony Day .
 
 Students will explore cultural topics, answer quiz questions,
-earn a badge, and save their result to a file.
+receive a score, and save their result to a text file.
 
 Author: Rohith
 Date: June 2026
 """
 
 import pygame
-
 
 # --------------------
 # CONSTANTS
@@ -122,31 +121,40 @@ QUIZ_QUESTIONS = [
 ]
 
 def save_result(student_name, score):
-
+    """
+    Save the student's name and quiz score to a text file.
+    Args:
+    student_name (str): Name of the student.
+    score (int): Quiz score (0-5).
+    
+    Returns:
+    None
+    """
     try:
-
         with open(RESULTS_FILE, "r") as file:
-
             lines = file.readlines()
-
             entry_number = len(lines) + 1
-
     except FileNotFoundError:
-
         entry_number = 1
 
     with open(RESULTS_FILE, "a") as file:
-
         file.write(
             f"{entry_number}. {student_name} - {score}/5\n"
         )
 
 def main():
     """
-    Create and run the Discover Kerala game.
+    Run the Discover Kerala Harmony Day cultural quiz game.
 
-    This function initializes Pygame, handles user input,
-    controls screen navigation and updates the display.
+    Students can:
+    - Enter their name
+    - Explore Kerala cultural topics
+    - Complete a five-question quiz
+    - View their final score
+    - Save results to a text file
+
+    Returns:
+        None
     """
     pygame.init()
 
@@ -336,9 +344,7 @@ def main():
         elif current_screen == "MENU":
 
             screen.fill(LIGHT_ORANGE)
-
             welcome_text = normal_font.render(f"Welcome, {student_name}",True,GREEN)
-
             title_text = normal_font.render("PRESS THE FOLLOWING KEYS TO EXPLORE KERALA",True,BLACK)
 
             screen.blit(welcome_text, (280, 50))
@@ -488,10 +494,7 @@ def main():
 
             pygame.display.flip()
 
-
-
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()
