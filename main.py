@@ -28,6 +28,8 @@ GREEN = (0, 120, 0)
 BLACK = (0, 0, 0)
 RED = (180, 0, 0)
 
+RESULTS_FILE = "student_results.txt"
+
 TOPICS = {
     "FOOD": [
         "Fish Moilee",
@@ -118,6 +120,26 @@ QUIZ_QUESTIONS = [
         "answer": "A"
     }
 ]
+
+def save_result(student_name, score):
+
+    try:
+
+        with open(RESULTS_FILE, "r") as file:
+
+            lines = file.readlines()
+
+            entry_number = len(lines) + 1
+
+    except FileNotFoundError:
+
+        entry_number = 1
+
+    with open(RESULTS_FILE, "a") as file:
+
+        file.write(
+            f"{entry_number}. {student_name} - {score}/5\n"
+        )
 
 def main():
     """
@@ -219,7 +241,24 @@ def main():
                         question_number += 1
 
                         if question_number >= len(QUIZ_QUESTIONS):
+
+                            save_result(student_name, score)
+
                             current_screen = "RESULT"
+
+                elif current_screen == "RESULT":
+
+                    if event.key == pygame.K_r:
+
+                        student_name = ""
+                        score = 0
+                        question_number = 0
+
+                        current_screen = "NAME"
+
+                    elif event.key == pygame.K_ESCAPE:
+
+                        running = False
 
             if event.type == pygame.QUIT:
                 running = False
@@ -430,11 +469,27 @@ def main():
                 BLACK
             )
 
+            restart_text = normal_font.render(
+                "Press R for next student",
+                True,
+                BLACK
+            )
+
+            exit_text = normal_font.render(
+                "Press ESC to Exit",
+                True,
+                RED
+            )
+
             screen.blit(result_text, (220, 200))
             screen.blit(score_text, (320, 320))
+            screen.blit(restart_text, (240, 420))
+            screen.blit(exit_text, (300, 480))
 
-            pygame.display.flip()  
-                    
+            pygame.display.flip()
+
+
+
     pygame.quit()
 
 
