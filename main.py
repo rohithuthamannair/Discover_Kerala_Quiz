@@ -29,10 +29,10 @@ RED = (180, 0, 0)
 
 def main():
     """
-    Start the Pygame application and create the main game window.
+    Create and run the Discover Kerala game.
 
-    The function opens a window and keeps it running until
-    the user closes it.
+    This function initializes Pygame, handles user input,
+    controls screen navigation and updates the display.
     """
     pygame.init()
 
@@ -45,6 +45,8 @@ def main():
     clock = pygame.time.Clock()
     running = True
     current_screen = "START"
+    student_name = ""
+    
 
     while running:
         clock.tick(FPS)
@@ -55,10 +57,28 @@ def main():
                 if current_screen == "START":
 
                     if event.key == pygame.K_k:
-                        print("K pressed")
+                        current_screen = "NAME"
 
                     elif event.key == pygame.K_ESCAPE:
-                        running = False            
+                        running = False  
+
+                elif current_screen == "NAME":
+
+                    if event.key == pygame.K_RETURN:
+
+                        if student_name.strip() != "":
+                            print("Student:", student_name)
+
+                    elif event.key == pygame.K_BACKSPACE:
+
+                        student_name = student_name[:-1]
+
+                    else:
+
+                        if len(student_name) < 18:
+                            student_name += event.unicode
+
+
             if event.type == pygame.QUIT:
                 running = False
 
@@ -94,8 +114,43 @@ def main():
             screen.blit(subtitle_text, (220, 250))
             screen.blit(start_text, (260, 350))
             screen.blit(exit_text, (320, 420))
-        pygame.display.flip()
+        
+            pygame.display.flip()
 
+        elif current_screen == "NAME":
+
+            screen.fill((255, 255, 255))
+
+            title_text = title_font.render(
+                "ENTER STUDENT NAME",
+                True,
+                GREEN
+            )
+
+            label_text = normal_font.render(
+                "Name:",
+                True,
+                BLACK
+            )
+
+            name_text = normal_font.render(
+                student_name,
+                True,
+                BLACK
+            )
+
+            enter_text = normal_font.render(
+                "Press ENTER to continue",
+                True,
+                RED
+            )
+
+            screen.blit(title_text, (180, 150))
+            screen.blit(label_text, (220, 280))
+            screen.blit(name_text, (330, 280))
+            screen.blit(enter_text, (220, 400))
+
+            pygame.display.flip()
     pygame.quit()
 
 
