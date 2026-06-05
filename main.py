@@ -207,6 +207,20 @@ def main():
                     if event.key == pygame.K_BACKSPACE:
                         current_screen = "MENU"
 
+                elif current_screen == "QUIZ":
+
+                    if event.key in [pygame.K_a, pygame.K_b, pygame.K_c]:
+
+                        answer = pygame.key.name(event.key).upper()
+
+                        if answer == QUIZ_QUESTIONS[question_number]["answer"]:
+                            score += 1
+
+                        question_number += 1
+
+                        if question_number >= len(QUIZ_QUESTIONS):
+                            current_screen = "RESULT"
+
             if event.type == pygame.QUIT:
                 running = False
 
@@ -400,7 +414,27 @@ def main():
 
             pygame.display.flip() 
 
+        elif current_screen == "RESULT":
 
+            screen.fill((255, 255, 255))
+
+            result_text = title_font.render(
+                "QUIZ COMPLETE!",
+                True,
+                GREEN
+            )
+
+            score_text = normal_font.render(
+                f"Score: {score}/5",
+                True,
+                BLACK
+            )
+
+            screen.blit(result_text, (220, 200))
+            screen.blit(score_text, (320, 320))
+
+            pygame.display.flip()  
+                    
     pygame.quit()
 
 
