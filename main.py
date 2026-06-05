@@ -46,7 +46,7 @@ def main():
     running = True
     current_screen = "START"
     student_name = ""
-    
+    selected_topic = ""
 
     while running:
         clock.tick(FPS)
@@ -60,7 +60,7 @@ def main():
                         current_screen = "NAME"
 
                     elif event.key == pygame.K_ESCAPE:
-                        running = False  
+                        running = False
 
                 elif current_screen == "NAME":
 
@@ -68,21 +68,63 @@ def main():
 
                         if student_name.strip() != "":
                             current_screen = "MENU"
-                            print("Moving to MENU")
 
                     elif event.key == pygame.K_BACKSPACE:
-
                         student_name = student_name[:-1]
 
                     else:
-
-                        if len(student_name) < 18:
+                        if len(student_name) < 18 and event.unicode.isprintable():
                             student_name += event.unicode
 
                 elif current_screen == "MENU":
 
                     if event.key == pygame.K_ESCAPE:
                         running = False
+
+                    elif event.key == pygame.K_f:
+                        selected_topic = "FOOD"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_e:
+                        selected_topic = "FESTIVALS"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_a:
+                        selected_topic = "ARTS & PERFORMANCE"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_c:
+                        selected_topic = "CLOTHING"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_m:
+                        selected_topic = "MARTIAL ARTS"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_w:
+                        selected_topic = "WELLNESS"
+                        current_screen = "TOPIC"
+
+                    elif event.key == pygame.K_k:
+                        selected_topic = "KERALA FUN FACTS"
+                        current_screen = "TOPIC"
+
+                elif current_screen == "TOPIC":
+
+                    if event.key == pygame.K_BACKSPACE:
+                        current_screen = "MENU"
+                
+                elif current_screen == "TOPIC":
+
+                    screen.fill((255, 255, 255))
+
+                    title_text = title_font.render(
+                        selected_topic,
+                        True,
+                        GREEN
+                    )
+
+                    screen.blit(title_text, (250, 80))
 
             if event.type == pygame.QUIT:
                 running = False
@@ -196,6 +238,26 @@ def main():
                 y += 40
             pygame.display.flip()
 
+        elif current_screen == "TOPIC":
+
+            screen.fill((255, 255, 255))
+
+            title_text = title_font.render(
+                selected_topic,
+                True,
+                GREEN
+            )
+
+            back_text = normal_font.render(
+                "Press BACKSPACE to return to Main Menu",
+                True,
+                RED
+            )
+
+            screen.blit(title_text, (220, 150))
+            screen.blit(back_text, (180, 500))
+
+            pygame.display.flip()
 
     pygame.quit()
 
